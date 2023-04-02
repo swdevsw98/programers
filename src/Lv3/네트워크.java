@@ -1,4 +1,4 @@
-package Lv2;
+package Lv3;
 
 public class 네트워크 {class Solution {
     public int solution(int n, int[][] computers) {
