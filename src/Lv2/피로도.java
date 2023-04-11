@@ -4,31 +4,27 @@ import java.util.*;
 public class 피로도 {
 
     class Solution {
+        public int answer = 0;
+        public boolean[] visit;
+
         public int solution(int k, int[][] dungeons) {
-            int answer = 0;
+            visit = new boolean[dungeons.length];
 
-            for(int i = 0; i < dungeons.length; i++){
-                int max = 0;
-                int maxIndex = 0;
+            dfs(0, k, dungeons);
 
-                //최소 피로도의 최대값 찾기 + k보다 작은
-                for(int j = 0; j < dungeons.length; j++){
-                    if(max < dungeons[j][0] && k >= dungeons[j][0]) {
-                        max = dungeons[j][0];
-                        maxIndex = j;
-                    }
-                }
+            return answer;
+        }
 
-
-                if(max != 0 && dungeons[maxIndex][0] != -1){
-                    k -= dungeons[maxIndex][1];
-                    dungeons[maxIndex][0] = -1;
-                    answer++;
+        public void dfs(int depth, int k, int[][] dungeons) {
+            for (int i = 0; i < dungeons.length; i++) {
+                if (!visit[i] && dungeons[i][0] <= k) {
+                    visit[i] = true;
+                    dfs(depth + 1, k - dungeons[i][1], dungeons);
+                    visit[i] = false;
                 }
             }
 
-
-            return answer;
+            answer = Math.max(answer, depth);
         }
     }
 }
