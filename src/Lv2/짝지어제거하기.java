@@ -1,26 +1,20 @@
 package Lv2;
+import java.util.*;
 
 public class 짝지어제거하기 {
     class Solution
     {
         public int solution(String s)
         {
-            int answer = -1;
+            Stack<Character> stack = new Stack<>();
 
-            for(int i = 0; i < s.length() - 1; i++) {
-                String t1 = s.substring(i, i+1);
-                String t2 = s.substring(i+1, i+2);
-                if(t1.equals(t2)){
-                    String temp = t1 + t2;
-                    s = s.replaceFirst(temp, "");
-                    i = -1;
-                }
+            for (char ch : s.toCharArray()) {
+                if (!stack.isEmpty() && stack.peek() == ch)
+                    stack.pop();
+                else
+                    stack.push(ch);
             }
-
-            if(s.equals(""))
-                return 1;
-
-            return 0;
+            return stack.isEmpty() ? 1 : 0;
         }
     }
 }
